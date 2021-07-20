@@ -13,9 +13,14 @@ object MovieRatingWriter {
   case class Rating(userId: Int, movieId: Int, rating: Double, timestamp: Timestamp)
 
   def main(args: Array[String]): Unit = {
+    if (args.length < 1){
+      System.err.println("Usage: MovieRatingWriter <data source path e.g. hdfs://koya/user/example>")
+      System.exit(1)
+    }
+
     val spark = SparkSession.builder()
       .appName("MovieRatingWriter")
-    //  .enableHiveSupport()
+      //.enableHiveSupport()
       .getOrCreate()
 
     import spark.implicits._
